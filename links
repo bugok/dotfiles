@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# A file which describes how to create symlinks from the repo to the 
+# home directory
+# Credit for the idea goes to Orr Sella: 
+# https://github.com/orrsella/dotfiles/blob/master/links
+#
+# Format:
+# destination, source
+
+~/.inputrc, /inputrc
