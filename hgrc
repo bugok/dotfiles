@@ -1,0 +1,23 @@
+[ui]
+username = Noam Lerner <noamler@fb.com>
+
+[extensions]
+color =
+
+# setting up hg colors: http://mercurial.selenic.com/wiki/ColorExtension
+[color]
+status.modified = white underline
+status.added = green bold
+status.removed = red bold blue_background
+status.deleted = cyan bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold
+log.changeset = yellow bold
+
+[alias]
+sf=log -r . -T '{shortest(node)} {author|user} {desc|firstline} [{phabdiff}]\n{files % "{sub(\"^(fbcode|fbandroid)/\", \"\", file)}\n"}'
+cur_diff=log -r . -T '{phabdiff}'
+
+[pager]
+pager = less -FRKX
+

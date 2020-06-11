@@ -3,20 +3,23 @@ $include /etc/inputrc
 set editing-mode vi
 TAB: complete
 
-set bell-style none
+set show-all-if-ambiguous on
 set completion-ignore-case on
 set input-meta on
+set bell-style none
 
+# Cycle through command history by typing "git " then
+# <up> arrow
+Control-p:history-search-backward
+Control-n:history-search-forward
+"\e[A":history-search-backward
+"\e[B":history-search-forward
+"\e[C":forward-char
+"\e[D":backward-char
+
+#Noam's specifics
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving
-# Not sure why need to define all three
-"\e[1;5C": forward-word
 "\e[1;5D": backward-word
-"\e[5C": forward-word
-"\e[5D": backward-word
-"\e\e[C": forward-word
-"\e\e[D": backward-word
-
-"\C-k": kill-line
+"\e[1;5C": forward-word
