@@ -17,12 +17,23 @@ if [ -f /opt/facebook/hg/share/scm-prompt.sh ]; then
   source /opt/facebook/hg/share/scm-prompt.sh
 fi
 
-# Using magenta (95) on laptop, to be able to distinguish between this 
-# and devserver
-export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[\033[95m\]\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
+# Using different text colors for different OSs to have a quicker indication 
+# about the machine I'm working on
+_hostname_color() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    builtin printf '\033[95m'  # magenta
+  else
+    builtin printf '\033[32m'  # green
+  fi
+}
+
+export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
 
 export DEVSERVER=devvm2682.lla2.facebook.com
 alias etdev="et $USER@$DEVSERVER:8087"
 
 alias ll='ls -alF'
 alias fbc="cd ${HOME}/fbsource/fbcode"
+
+# Add JDK
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
