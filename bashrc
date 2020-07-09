@@ -27,7 +27,7 @@ _hostname_color() {
   fi
 }
 
-export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
+export PS1='$?|[\[\033[36m\]\u\[\033[m\]@$(_hostname_color)\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
 
 export DEVSERVER=devvm2682.lla2.facebook.com
 alias etdev="et $USER@$DEVSERVER:8087"
@@ -37,3 +37,9 @@ alias fbc="cd ${HOME}/fbsource/fbcode"
 
 # Add JDK
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+alias vpnoff='/opt/cisco/anyconnect/bin/vpn disconnect'
+alias vpnkill='echo for the love of god; sudo pkill -f vpn'
+alias vpnon='/opt/cisco/anyconnect/bin/vpn connect "EMEA"'
+alias vpnstatus='/opt/cisco/anyconnect/bin/vpn state'
+
