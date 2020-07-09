@@ -27,7 +27,7 @@ _hostname_color() {
   fi
 }
 
-export PS1='$?|[\[\033[36m\]\u\[\033[m\]@$(_hostname_color)\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
+export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
 
 export DEVSERVER=devvm2682.lla2.facebook.com
 alias etdev="et $USER@$DEVSERVER:8087"
