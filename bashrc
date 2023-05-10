@@ -13,8 +13,8 @@ if [ -f "$HOME/.inputrc" ]; then
   export INPUTRC="$HOME/.inputrc"
 fi 
 
-if [ -f /opt/facebook/hg/share/scm-prompt.sh ]; then
-  source /opt/facebook/hg/share/scm-prompt.sh
+if [ -f /opt/facebook/hg/share/scm-prompt ]; then
+  source /opt/facebook/hg/share/scm-prompt
 fi
 
 # Using different text colors for different OSs to have a quicker indication 
@@ -29,17 +29,28 @@ _hostname_color() {
 
 export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
 
-export DEVSERVER=devvm2682.lla2.facebook.com
-alias etdev="et $USER@$DEVSERVER:8087"
+export DEVSERVER=devvm4145.lla0.facebook.com
+export OLD_DEVSERVER=devvm1425.lla0.facebook.com
+alias etdev="et $USER@$DEVSERVER:8080"
 
 alias ll='ls -alF'
 alias fbc="cd ${HOME}/fbsource/fbcode"
 
-# Add JDK
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
+# Add JDK, gem
+export PATH="/usr/local/opt/openjdk/bin:$HOME/.gem/ruby/2.6.0/bin:$PATH:$HOME/bin"
 
-alias vpnoff='/opt/cisco/anyconnect/bin/vpn disconnect'
+# Add go stuff
+export PATH="$PATH:$HOME/go/bin/"
+
+# Add node
+# After running 'npm config set prefix=$HOME/node'
+export PATH="$PATH:$HOME/node/bin"
+
+export VPN_CLIENT="/opt/cisco/secureclient/bin/vpn"
+alias vpnoff="${VPN_CLIENT} disconnect"
 alias vpnkill='echo for the love of god; sudo pkill -f vpn'
-alias vpnon='/opt/cisco/anyconnect/bin/vpn connect "EMEA"'
-alias vpnstatus='/opt/cisco/anyconnect/bin/vpn state'
+alias vpnon="${VPN_CLIENT} connect \"EMEA\""
+alias vpnstatus="${VPN_CLIENT} state"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
