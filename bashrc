@@ -31,7 +31,13 @@ export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\
 
 export DEVSERVER=devvm4145.lla0.facebook.com
 export OLD_DEVSERVER=devvm1425.lla0.facebook.com
-alias etdev="et $USER@$DEVSERVER:8080"
+
+# With vpn
+# alias etdev="et $USER@$DEVSERVER:8080"
+
+# Without vpn
+alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -A -s dev'"
+
 
 alias ll='ls -alF'
 alias fbc="cd ${HOME}/fbsource/fbcode"
