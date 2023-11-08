@@ -29,8 +29,8 @@ _hostname_color() {
 
 export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
 
-export DEVSERVER=devvm4145.lla0.facebook.com
-export OLD_DEVSERVER=devvm1425.lla0.facebook.com
+export OLD_DEVSERVER=devvm4145.lla0.facebook.com
+export DEVSERVER=devvm27798.lla0.facebook.com
 
 # With vpn
 # alias etdev="et $USER@$DEVSERVER:8080"
