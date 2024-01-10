@@ -27,7 +27,7 @@ _hostname_color() {
   fi
 }
 
-export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\W\[\033[m\]$(_scm_prompt)\$ '
+export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\w\[\033[m\]$(_scm_prompt)\$ '
 
 export OLD_DEVSERVER=devvm4145.lla0.facebook.com
 export DEVSERVER=devvm27798.lla0.facebook.com
@@ -51,6 +51,9 @@ export PATH="$PATH:$HOME/go/bin/"
 # Add node
 # After running 'npm config set prefix=$HOME/node'
 export PATH="$PATH:$HOME/node/bin"
+
+# Add Android tools
+export PATH="$PATH:/Users/$USER/Library/Android/sdk/platform-tools"
 
 export VPN_CLIENT="/opt/cisco/secureclient/bin/vpn"
 alias vpnoff="${VPN_CLIENT} disconnect"
