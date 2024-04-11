@@ -55,6 +55,9 @@ export PATH="$PATH:$HOME/node/bin"
 # Add Android tools
 export PATH="$PATH:/Users/$USER/Library/Android/sdk/platform-tools"
 
+# Add homebrew
+export PATH="$PATH:/opt/homebrew/bin/"
+
 export VPN_CLIENT="/opt/cisco/secureclient/bin/vpn"
 alias vpnoff="${VPN_CLIENT} disconnect"
 alias vpnkill='echo for the love of god; sudo pkill -f vpn'
