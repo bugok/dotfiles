@@ -15,11 +15,6 @@ function err ()
     exit 1
 }
 
-name=$(uname)
-if [[ $name != 'Darwin' ]]; then
-  err "Supposed to run only on MacOS. Bailing"
-fi
-
 cur_basename=$(basename $PWD)
 if [[ $cur_basename != "dotfiles" ]]; then
     err "$0 needs to run from the dotfiles directory"
