@@ -64,5 +64,5 @@ alias vpnkill='echo for the love of god; sudo pkill -f vpn'
 alias vpnon="${VPN_CLIENT} connect \"EMEA\""
 alias vpnstatus="${VPN_CLIENT} state"
 
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# This is how to add fzf support after installing fzf using homebrew
+eval "$(fzf --bash)"
