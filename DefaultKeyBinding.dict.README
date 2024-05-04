@@ -1,0 +1,8 @@
+The DefaultKeyBinding.dict file  will make home / end keys behave like on Windows
+
+Copied from here:
+https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x
+
+For a more detailed file, see here: https://gist.github.com/trusktr/1e5e516df4e8032cbc3d
+
+Remeber to reboot after editing the file

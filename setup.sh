@@ -26,3 +26,11 @@ copy_file inputrc $HOME/.inputrc
 copy_file ssh_config $HOME/.ssh/config
 copy_file vimrc $HOME/.vimrc
 
+name=$(uname)
+if [[ $name == 'Darwin' ]]; then
+  echo "On MacOS. Doing MacOS specific stuff"
+  
+  copy_file DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
+
+fi
+
