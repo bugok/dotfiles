@@ -42,7 +42,7 @@ set wildmenu
 " set automaric spelling for txt files
 " au BufRead *.txt setlocal spell spelllang=en_us
 "au BufNewFile,BufRead,BufEnter *.txt setlocal spell spelllang=en_us tw=80 wrap
-"au BufNewFile,BufRead,BufEnter *.md setlocal spell spelllang=en_us tw=80 wrap
+au BufNewFile,BufRead,BufEnter *.md setlocal spell spelllang=en_us tw=80 wrap
 "au BufNewFile,BufRead,BufEnter /tmp/edit.*/new-commit setlocal spell spelllang=en_us tw=80 wrap
 au BufNewFile,BufRead,BufEnter *hg-editor-*.commit.hg.txt setlocal spell spelllang=en_us tw=80 wrap
 
