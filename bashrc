@@ -13,8 +13,8 @@ if [ -f "$HOME/.inputrc" ]; then
   export INPUTRC="$HOME/.inputrc"
 fi 
 
-if [ -f /opt/facebook/hg/share/scm-prompt ]; then
-  source /opt/facebook/hg/share/scm-prompt
+if [ -f $HOME/scripts/scm-prompt.sh ]; then
+  source $HOME/scripts/scm-prompt.sh
 fi
 
 # Using different text colors for different OSs to have a quicker indication 

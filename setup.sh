@@ -20,12 +20,15 @@ if [[ $cur_basename != "dotfiles" ]]; then
     err "$0 needs to run from the dotfiles directory"
 fi
 
+mkdir -p $HOME/scripts/
+
 copy_file bash_profile $HOME/.bash_profile
 copy_file hgrc $HOME/.hgrc
 copy_file inputrc $HOME/.inputrc
 copy_file ssh_config $HOME/.ssh/config
 copy_file vimrc $HOME/.vimrc
 copy_file gitconfig $HOME/.gitconfig
+copy_file submodules/sapling/eden/scm/contrib/scm-prompt.sh $HOME/scripts/scm-prompt.sh
 
 name=$(uname)
 if [[ $name == 'Darwin' ]]; then
