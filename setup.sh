@@ -25,6 +25,7 @@ copy_file hgrc $HOME/.hgrc
 copy_file inputrc $HOME/.inputrc
 copy_file ssh_config $HOME/.ssh/config
 copy_file vimrc $HOME/.vimrc
+copy_file gitconfig $HOME/.gitconfig
 
 name=$(uname)
 if [[ $name == 'Darwin' ]]; then

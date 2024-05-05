@@ -1,0 +1,6 @@
+[user]
+  name = Noam Lerner
+  email = noam.lerner@gmail.com
+
+[http "https://git.c2p.facebook.net"]
+  sslCert = /var/facebook/credentials/noamler/x509/noamler.pem
