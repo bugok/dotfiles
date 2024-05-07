@@ -7,6 +7,7 @@ function copy_file ()
     local dst="${2:?}"
 
     echo "Copying ${src} to ${dst}"
+    cp $src $dst
 }
 
 function err ()
