@@ -36,6 +36,6 @@ if [[ $name == 'Darwin' ]]; then
   echo "On MacOS. Doing MacOS specific stuff"
   
   copy_file DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
-
+  copy_file com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
 fi
 
