@@ -29,14 +29,16 @@ _hostname_color() {
 
 export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\w\[\033[m\]$(_scm_prompt)\$ '
 
-export OLD_DEVSERVER=devvm3939.cln0.facebook.com
-export DEVSERVER=devbig079.cln2.facebook.com
+export OLD_DEVSERVER=devbig079.cln2.facebook.com
+export DEVSERVER=devbig887.lla2.facebook.com
+export DEVSERVER64=devvm24535.cln0.facebook.com
 
 # With vpn
 # alias etdev="et $USER@$DEVSERVER:8080"
 
 # Without vpn
 alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -A -s dev'"
+alias etdev64="/usr/local/bin/x2ssh -et $DEVSERVER64 -c 'tmux -CC new -A -s dev'"
 
 
 alias ll='ls -alF'
