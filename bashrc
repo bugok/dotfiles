@@ -37,7 +37,7 @@ export DEVSERVER64=devvm24535.cln0.facebook.com
 # alias etdev="et $USER@$DEVSERVER:8080"
 
 # Without vpn
-alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -d -A -s dev'"
+alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -AD -s dev'"
 
 
 alias ll='ls -alF'
