@@ -17,6 +17,10 @@ if [ -f $HOME/scripts/scm-prompt.sh ]; then
   source $HOME/scripts/scm-prompt.sh
 fi
 
+# show worktree information in scm_prompt:  
+# https://noamlerner.com/posts/worktree_scm_prompt/
+export SCM_PROMPT_SHOW_WORKTREE=1 
+
 # Using different text colors for different OSs to have a quicker indication 
 # about the machine I'm working on
 _hostname_color() {
