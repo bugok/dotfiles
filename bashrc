@@ -43,6 +43,8 @@ export DEVSERVER64=devvm24535.cln0.facebook.com
 # Without vpn
 alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -AD -s dev'"
 
+# Connect to on-demand with tmux
+alias dev_od="dev connect --type www_fbsource_configerator -- tmux -CC new -A -s main"
 
 alias ll='ls -alF'
 alias fbc="cd ${HOME}/fbsource/fbcode"
