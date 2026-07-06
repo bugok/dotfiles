@@ -46,6 +46,25 @@ alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -AD -s dev'"
 # Connect to on-demand with tmux
 alias dev_od="dev connect --type www_fbsource_configerator -- tmux -CC new -A -s main"
 
+# Reconnect to the tmux session ("main") on the OD reserved via the dev_od alias.
+reconnect_od() {
+    local type="www_fbsource_configerator"
+
+    local host
+    host=$(dev list 2>/dev/null | awk -v t="$type" '$0 ~ t && $1 ~ /\.od$/ {print $1; exit}')
+
+    if [[ -z "$host" ]]; then
+        echo "reconnect_od: no '$type' on-demand found in 'dev list'." >&2
+        echo "               reserve one first with: dev_od" >&2
+        return 1
+    fi
+
+    echo "reconnect_od: reconnecting to $host (tmux session: main)..." >&2
+    # -n <host> targets the existing OD; tmux 'new -A -s main' attaches if the
+    # session exists, else creates it. Mirrors the dev_od alias.
+    dev connect -n "$host" -- tmux -CC new -A -s main
+}
+
 alias ll='ls -alF'
 alias fbc="cd ${HOME}/fbsource/fbcode"
 
@@ -83,3 +102,11 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+# FBLite Unity dev-loop helpers (lite-rebuild, lite-rerun, lite-reunite, lite-log, ...)
+if [ -f "$HOME/fbsource/fbcode/fblite/unity/scripts/od_utils_functions.sh" ]; then
+  source "$HOME/fbsource/fbcode/fblite/unity/scripts/od_utils_functions.sh"
+  # the script turns on errexit/nounset, which are hostile to interactive shells; undo them
+  set +o errexit; set +o nounset
+fi
+
