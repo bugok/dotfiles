@@ -39,6 +39,6 @@ if [[ $name == 'Darwin' ]]; then
   mkdir -p $HOME/Library/KeyBindings
   
   copy_file DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
-  copy_file com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
+  defaults import com.googlecode.iterm2 com.googlecode.iterm2.plist
 fi
 
