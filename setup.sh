@@ -23,6 +23,7 @@ fi
 
 mkdir -p $HOME/scripts/
 
+copy_file bashrc $HOME/.bashrc
 copy_file bash_profile $HOME/.bash_profile
 copy_file hgrc $HOME/.hgrc
 copy_file inputrc $HOME/.inputrc

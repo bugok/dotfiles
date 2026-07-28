@@ -37,8 +37,9 @@ export OLD_DEVSERVER=devbig079.cln2.facebook.com
 export DEVSERVER=devbig887.lla2.facebook.com
 export DEVSERVER64=devvm24535.cln0.facebook.com
 
-# With vpn
-# alias etdev="et $USER@$DEVSERVER:8080"
+# Suppress zsh is the default shell on mac
+# https://apple.stackexchange.com/a/371998
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Without vpn
 alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -AD -s dev'"
