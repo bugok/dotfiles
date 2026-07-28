@@ -35,6 +35,8 @@ copy_file submodules/sapling/eden/scm/contrib/scm-prompt.sh $HOME/scripts/scm-pr
 name=$(uname)
 if [[ $name == 'Darwin' ]]; then
   echo "On MacOS. Doing MacOS specific stuff"
+
+  mkdir -p $HOME/Library/KeyBindings
   
   copy_file DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict
   copy_file com.googlecode.iterm2.plist $HOME/Library/Preferences/com.googlecode.iterm2.plist
