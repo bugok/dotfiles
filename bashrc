@@ -49,11 +49,14 @@ alias dev_od="dev connect --type www_fbsource_configerator -- tmux -CC new -A -s
 
 # Reconnect to the tmux session ("main") on an OD reserved via the dev_od alias.
 # Usage: reconnect_od [hostname]
-#   The hostname is optional when exactly one matching OD is reserved. It may be
-#   fully qualified (devvm63350.cln0.facebook.com) or any leading part of that
-#   name (devvm63350.cln0, devvm63350). An ambiguous partial lists the matches.
+#   The hostname is optional when exactly one host is listed. It may be fully
+#   qualified (devvm63350.cln0.facebook.com) or any leading part of that name
+#   (devvm63350.cln0, devvm63350). An ambiguous partial lists the matches.
+#
+#   Note: 'dev list' reports the hardware type (devserver:dev7_xlarge), not the
+#   OD type the instance was reserved with, so there is no way to narrow this to
+#   www_fbsource_configerator here -- every host you own is a candidate.
 reconnect_od() {
-    local type="www_fbsource_configerator"
     local want="${1%.facebook.com}"
 
     if ! command -v jq >/dev/null; then
@@ -61,23 +64,32 @@ reconnect_od() {
         return 1
     fi
 
+    local listing
+    if ! listing=$(dev list --json -q 2>/dev/null) || [[ -z "$listing" ]]; then
+        echo "reconnect_od: 'dev list --json -q' failed; run 'dev list' to see why." >&2
+        return 1
+    fi
+
+    # Your own instances come back under 'reservable' (not 'reserved', which the
+    # CLI does not emit). Entries without a hostname are reservable *types*, only
+    # present with --with-reservable, and are skipped.
     local hosts
-    hosts=$(dev list --json -q 2>/dev/null | jq -r --arg type "$type" --arg want "$want" '
-        (.reserved // [])
-        | map(select((.type | split(":")[0]) == $type and (.is_disabled | not)))
+    hosts=$(jq -r --arg want "$want" '
+        (.reservable // .reserved // [])
+        | map(select(has("hostname") and (.is_disabled | not)))
         | map(.hostname)
         | map(select($want == "" or . == $want or startswith($want + ".")))
-        | .[]')
+        | .[]' <<< "$listing")
 
     if [[ -z "$hosts" ]]; then
-        echo "reconnect_od: no ${want:+'$want' }'$type' on-demand found in 'dev list'." >&2
+        echo "reconnect_od: no ${want:+'$want' }host found in 'dev list'." >&2
         echo "               reserve one first with: dev_od" >&2
         return 1
     fi
 
     local host
     if [[ $(wc -l <<< "$hosts") -gt 1 ]]; then
-        echo "reconnect_od: multiple '$type' on-demands reserved; pick one:" >&2
+        echo "reconnect_od: multiple hosts match${want:+ '$want'}; pick one:" >&2
         sed 's/^/                 reconnect_od /' <<< "$hosts" >&2
         return 1
     fi
