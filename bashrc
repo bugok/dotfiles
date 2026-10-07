@@ -33,76 +33,11 @@ _hostname_color() {
 
 export PS1='$?|[\[\033[36m\]\u\[\033[m\]@\[$(_hostname_color)\]\h\[\033[m\]]:\[\033[33;1m\]\w\[\033[m\]$(_scm_prompt)\$ '
 
-export OLD_DEVSERVER=devbig079.cln2.facebook.com
-export DEVSERVER=devbig887.lla2.facebook.com
-export DEVSERVER64=devvm24535.cln0.facebook.com
-
 # Suppress zsh is the default shell on mac
 # https://apple.stackexchange.com/a/371998
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# Without vpn
-alias etdev="/usr/local/bin/x2ssh -et $DEVSERVER -c 'tmux -CC new -AD -s dev'"
-
-# Connect to on-demand with tmux
-alias dev_od="dev connect --type www_fbsource_configerator -- tmux -CC new -A -s main"
-
-# Reconnect to the tmux session ("main") on an OD reserved via the dev_od alias.
-# Usage: reconnect_od [hostname]
-#   The hostname is optional when exactly one host is listed. It may be fully
-#   qualified (devvm63350.cln0.facebook.com) or any leading part of that name
-#   (devvm63350.cln0, devvm63350). An ambiguous partial lists the matches.
-#
-#   Note: 'dev list' reports the hardware type (devserver:dev7_xlarge), not the
-#   OD type the instance was reserved with, so there is no way to narrow this to
-#   www_fbsource_configerator here -- every host you own is a candidate.
-reconnect_od() {
-    local want="${1%.facebook.com}"
-
-    if ! command -v jq >/dev/null; then
-        echo "reconnect_od: jq is required (brew install jq)." >&2
-        return 1
-    fi
-
-    local listing
-    if ! listing=$(dev list --json -q 2>/dev/null) || [[ -z "$listing" ]]; then
-        echo "reconnect_od: 'dev list --json -q' failed; run 'dev list' to see why." >&2
-        return 1
-    fi
-
-    # Your own instances come back under 'reservable' (not 'reserved', which the
-    # CLI does not emit). Entries without a hostname are reservable *types*, only
-    # present with --with-reservable, and are skipped.
-    local hosts
-    hosts=$(jq -r --arg want "$want" '
-        (.reservable // .reserved // [])
-        | map(select(has("hostname") and (.is_disabled | not)))
-        | map(.hostname)
-        | map(select($want == "" or . == $want or startswith($want + ".")))
-        | .[]' <<< "$listing")
-
-    if [[ -z "$hosts" ]]; then
-        echo "reconnect_od: no ${want:+'$want' }host found in 'dev list'." >&2
-        echo "               reserve one first with: dev_od" >&2
-        return 1
-    fi
-
-    local host
-    if [[ $(wc -l <<< "$hosts") -gt 1 ]]; then
-        echo "reconnect_od: multiple hosts match${want:+ '$want'}; pick one:" >&2
-        sed 's/^/                 reconnect_od /' <<< "$hosts" >&2
-        return 1
-    fi
-    host="$hosts"
-
-    echo "reconnect_od: reconnecting to $host (tmux session: main)..." >&2
-    # -n <host> targets the existing OD; tmux 'new -A -s main' attaches if the
-    # session exists, else creates it. Mirrors the dev_od alias.
-    dev connect -n "$host" -- tmux -CC new -A -s main
-}
-
 alias ll='ls -alF'
-alias fbc="cd ${HOME}/fbsource/fbcode"
 
 # Add JDK, gem
 export PATH="/usr/local/opt/openjdk/bin:$HOME/.gem/ruby/2.6.0/bin:$PATH:$HOME/bin"
@@ -120,12 +55,6 @@ export PATH="$PATH:/Users/$USER/Library/Android/sdk/platform-tools"
 # Add homebrew
 export PATH="$PATH:/opt/homebrew/bin/"
 
-export VPN_CLIENT="/opt/cisco/secureclient/bin/vpn"
-alias vpnoff="${VPN_CLIENT} disconnect"
-alias vpnkill='echo for the love of god; sudo pkill -f vpn'
-alias vpnon="${VPN_CLIENT} connect \"EMEA\""
-alias vpnstatus="${VPN_CLIENT} state"
-
 # This is how to add fzf support after installing fzf using homebrew
 eval "$(fzf --bash)"
 
@@ -139,10 +68,10 @@ export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
-# FBLite Unity dev-loop helpers (lite-rebuild, lite-rerun, lite-reunite, lite-log, ...)
-if [ -f "$HOME/fbsource/fbcode/fblite/unity/scripts/od_utils_functions.sh" ]; then
-  source "$HOME/fbsource/fbcode/fblite/unity/scripts/od_utils_functions.sh"
-  # the script turns on errexit/nounset, which are hostile to interactive shells; undo them
-  set +o errexit; set +o nounset
+# Meta-internal config (devservers, VPN, fbsource helpers), synced via dotsync2 (mac set)
+if [ -d "$HOME/dotsync_managed/bashrc.d" ]; then
+  for f in "$HOME"/dotsync_managed/bashrc.d/*.sh; do
+    [ -r "$f" ] && source "$f"
+  done
+  unset f
 fi
-
