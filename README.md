@@ -13,6 +13,12 @@ git clone --recurse-submodules --shallow-submodules git@github.com:bugok/dotfile
 
 The `setup.sh` is meant to copy everything to where it's supposed to be
 
+If you've already run the clone - but forgot to get the submodules, run:
+
+```
+git submodule update --init --recursive --depth 1
+```
+
 ## Environment setup
 
 For mac, there's also `mac_setup.sh`. 
